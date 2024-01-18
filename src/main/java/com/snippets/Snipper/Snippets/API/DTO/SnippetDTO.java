@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SnippetDTO {
-    private String id;
+    private Integer id;
     private String language;
     private String code;
 }

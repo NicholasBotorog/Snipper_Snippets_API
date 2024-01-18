@@ -20,7 +20,7 @@ public class SnippetService {
     public SnippetDTO addSnippet(SnippetDTO snippetNew){
         Snippet snippet = new Snippet();
         snippet.setLanguage(snippetNew.getLanguage());
-        snippet.setCode(snippet.getCode());
+        snippet.setCode(snippetNew.getCode());
         Snippet newSnippet = snippetRepository.save(snippet);
 
         return mapToDTO(newSnippet);
@@ -31,7 +31,7 @@ public class SnippetService {
         return snippets.stream().map(snippet -> mapToDTO(snippet)).collect(Collectors.toList());
     }
 
-    public SnippetDTO viewSnippetById(String id){
+    public SnippetDTO viewSnippetById(Integer id){
         Snippet snippet = snippetRepository.findById(id).orElseThrow(() -> new RuntimeException("Snippet not found"));
         return mapToDTO(snippet);
     }

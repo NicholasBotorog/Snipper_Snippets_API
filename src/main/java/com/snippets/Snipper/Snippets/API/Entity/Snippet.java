@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Snippet {
     @Id
     @GeneratedValue
-    private String id;
+    private Integer id;
 
     @Column
     private String language;
