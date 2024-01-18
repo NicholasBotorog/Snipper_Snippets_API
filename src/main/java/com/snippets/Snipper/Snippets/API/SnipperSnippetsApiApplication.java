@@ -8,6 +8,6 @@ public class SnipperSnippetsApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SnipperSnippetsApiApplication.class, args);
+		System.out.println("Snipper Snippets");
 	}
-
 }
