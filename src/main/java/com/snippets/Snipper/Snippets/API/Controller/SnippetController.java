@@ -32,8 +32,8 @@ public class SnippetController {
 
     @GetMapping
     public ResponseEntity<List<SnippetDTO>> getAll(){
-        List<SnippetDTO> response = snippetService.viewAll();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+            List<SnippetDTO> response = snippetService.viewAll();
+            return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -42,9 +42,9 @@ public class SnippetController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<SnippetDTO> getByLanguage(@RequestParam(value = "lang") String language){
-        SnippetDTO response = snippetService.viewByLanguage(language);
+    @GetMapping("/language")
+    public ResponseEntity<List<SnippetDTO>> getAllByLanguage(@RequestParam(value = "lang") String language){
+        List<SnippetDTO> response = snippetService.viewAllByLanguage(language);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

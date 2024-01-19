@@ -36,12 +36,12 @@ public class SnippetService {
         return mapToDTO(snippet);
     }
 
-    public SnippetDTO viewByLanguage(String language){
-        Snippet snippet = snippetRepository.findByLanguage(language);
-        if(snippet == null){
-            throw new RuntimeException("Snippet not found!");
-        }
-        return mapToDTO(snippet);
+    public List<SnippetDTO> viewAllByLanguage(String language){
+        List<Snippet> snippets = snippetRepository.findAllByLanguage(language);
+//        if(snippets == null){
+//            throw new RuntimeException("Snippet not found!");
+//        }
+        return snippets.stream().map(s -> mapToDTO(s)).collect(Collectors.toList());
     }
 
     private SnippetDTO mapToDTO(Snippet snippet){

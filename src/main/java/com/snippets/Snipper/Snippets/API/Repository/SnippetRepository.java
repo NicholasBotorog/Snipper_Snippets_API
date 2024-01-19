@@ -4,7 +4,9 @@ import com.snippets.Snipper.Snippets.API.Entity.Snippet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SnippetRepository extends JpaRepository<Snippet, Integer> {
-    Snippet findByLanguage(String language);
+    List<Snippet> findAllByLanguage(String language);
 }
