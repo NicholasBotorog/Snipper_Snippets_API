@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SnippetRepository extends JpaRepository<Snippet, Integer> {
+    Snippet findByLanguage(String language);
 }

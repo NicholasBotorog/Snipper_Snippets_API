@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +39,12 @@ public class SnippetController {
     @GetMapping("/{id}")
     public ResponseEntity<SnippetDTO> getById(@PathVariable(value = "id") Integer id){
         SnippetDTO response = snippetService.viewSnippetById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<SnippetDTO> getByLanguage(@RequestParam(value = "lang") String language){
+        SnippetDTO response = snippetService.viewByLanguage(language);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
