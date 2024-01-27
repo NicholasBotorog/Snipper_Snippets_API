@@ -3,6 +3,8 @@ package com.snippets.Snipper.Snippets.API.Service;
 import com.snippets.Snipper.Snippets.API.DTO.SnippetDTO;
 import com.snippets.Snipper.Snippets.API.Entity.Snippet;
 import com.snippets.Snipper.Snippets.API.Repository.SnippetRepository;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,18 +14,25 @@ import java.util.stream.Collectors;
 public class SnippetService {
     private final SnippetRepository snippetRepository;
 
-
     public SnippetService(SnippetRepository snippetRepository) {
         this.snippetRepository = snippetRepository;
     }
 
     public SnippetDTO addSnippet(SnippetDTO snippetNew){
+        TextEncryptor encryptor = Encryptors.text("password", "5c0744940b5c369b");
+
         Snippet snippet = new Snippet();
         snippet.setLanguage(snippetNew.getLanguage());
-        snippet.setCode(snippetNew.getCode());
+        // ENCRYPTING THE CODE
+        snippet.setCode(encryptor.encrypt(snippetNew.getCode()));
+
         Snippet newSnippet = snippetRepository.save(snippet);
 
-        return mapToDTO(newSnippet);
+        SnippetDTO snippetDTO = new SnippetDTO();
+        snippetDTO.setId(newSnippet.getId());
+        snippetDTO.setLanguage(newSnippet.getLanguage());
+        snippetDTO.setCode(newSnippet.getCode());
+        return snippetDTO;
     }
 
     public List<SnippetDTO> viewAll(){
@@ -45,10 +54,11 @@ public class SnippetService {
     }
 
     private SnippetDTO mapToDTO(Snippet snippet){
+        TextEncryptor encryptor = Encryptors.text("password", "5c0744940b5c369b");
         SnippetDTO snippetDTO = new SnippetDTO();
         snippetDTO.setId(snippet.getId());
         snippetDTO.setLanguage(snippet.getLanguage());
-        snippetDTO.setCode(snippet.getCode());
+        snippetDTO.setCode(encryptor.decrypt(snippet.getCode()));
         return snippetDTO;
     }
 
